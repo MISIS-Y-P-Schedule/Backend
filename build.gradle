@@ -35,6 +35,8 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.5'
     implementation 'org.telegram:telegrambots:6.9.7.1'
     implementation 'org.telegram:telegrambots-abilities:6.9.7.1'
+
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
 // https://mvnrepository.com/artifact/org.commonmark/commonmark
 //    implementation 'org.commonmark:commonmark:0.21.0'
 

@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TeacherYPRepository extends JpaRepository<TeacherYP, Long> {
     @Query
-    TeacherYP findTeacherYPByFirstnameAndLastname(String firstName, String lastName);
+    TeacherYP findTeacherYPByLastnameAndFirstnameAndMidname (String lastname, String firstname, String midname);
 }

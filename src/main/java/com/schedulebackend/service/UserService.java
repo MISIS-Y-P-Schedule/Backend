@@ -1,11 +1,13 @@
 package com.schedulebackend.service;
 
-import com.schedulebackend.database.DTO.UserCreateEditDTO;
-import com.schedulebackend.database.DTO.UserReadDTO;
+
+import com.schedulebackend.database.DTO.AuthDTO.UserCreateDTO;
+import com.schedulebackend.database.DTO.AuthDTO.UserReadDTO;
 import com.schedulebackend.database.entity.User;
-import com.schedulebackend.database.mapper.UserCreateEditMapper;
+import com.schedulebackend.database.mapper.UserCreateMapper;
 import com.schedulebackend.database.mapper.UserReadMapper;
 import com.schedulebackend.database.repository.UserRepository;
+import jakarta.security.auth.message.AuthException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,7 +25,8 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
-    private final UserCreateEditMapper userCreateEditMapper;
+    private final UserCreateMapper userCreateMapper;
+
     public List<UserReadDTO> findAll() {
         return userRepository.findAll().stream()
                 .map(userReadMapper::map)
@@ -36,23 +39,23 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User create(UserCreateEditDTO userDto) {
+    public User create(UserCreateDTO userDto) throws AuthException {
         if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("Username already exists");
+            throw new AuthException("Эта почта уже занята");
         }
         return Optional.of(userDto)
-                .map(userCreateEditMapper::map)
+                .map(userCreateMapper::map)
                 .map(userRepository::save)
                 .orElseThrow();
     }
 
-    @Transactional
-    public Optional<UserReadDTO> update(Long id, UserCreateEditDTO userDto) {
-        return userRepository.findById(id)
-                .map(user -> userCreateEditMapper.map(userDto, user))
-                .map(userRepository::saveAndFlush)
-                .map(userReadMapper::map);
-    }
+//    @Transactional
+//    public Optional<UserReadDTO> update(Long id, UserCreateDTO userDto) {
+//        return userRepository.findById(id)
+//                .map(user -> userCreateMapper.map(userDto, user))
+//                .map(userRepository::saveAndFlush)
+//                .map(userReadMapper::map);
+//    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

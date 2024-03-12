@@ -1,6 +1,6 @@
 package com.schedulebackend.database.mapper;
 
-import com.schedulebackend.database.DTO.UserReadDTO;
+import com.schedulebackend.database.DTO.AuthDTO.UserReadDTO;
 import com.schedulebackend.database.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,4 +21,5 @@ public class UserReadMapper implements Mapper<User, UserReadDTO> {
                 user.getGroup().getName(),
                 user.getRole());
     }
+
 }

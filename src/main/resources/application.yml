@@ -7,25 +7,28 @@ logging:
 
 spring:
   datasource:
-#    url: jdbc:postgresql://localhost:5432/ScheduleBackendTest
-#    username: postgres
-#    password: postgres
-    url: ${SPRING_DB_HOST}
-    username: ${SPRING_DB_USER}
-    password: ${SPRING_DB_USER}
+    url: jdbc:postgresql://localhost:5432/ScheduleBackendTest
+    username: postgres
+    password: postgres
+#    url: ${SPRING_DB_HOST}
+#    username: ${SPRING_DB_USER}
+#    password: ${SPRING_DB_USER}
   jpa:
     hibernate:
       ddl-auto: validate
-  security:
-    jwt:
-      token:
-        secret-key: 3943244287652323104D635166546A576E5A7234743777217A25432A462D4A614E645267556B58703273357638782F413F4428472B4B6250655368566D597133743677397A244226452948404D635166546A576E5A7234753778214125442A462D4A614E645267556B58703273357638792F423F4528482B4B6250655368566D
     properties.hibernate:
       show_sql: false
       format_sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+  security:
+    jwt:
+      secret:
+        access: qBTmv4oXFFR2GwjexDJ4t6fsIUIUhhXqlktXjXdkcyygs8nPVEwMfo29VDRRepYDVV5IkIxBMzr7OEHXEHd37w==
+        refresh: zL1HB3Pch05Avfynovxrf/kpF9O2m4NCWKJUjEp27s9J2jEG3ifiKCGylaZ8fDeoONSTJP/wAzKawB8F9rOMNg==
   liquibase:
     enabled: true
     drop-first: false
@@ -35,11 +38,15 @@ spring:
     scheduling:
       pool:
         size: 5
-
 variables:
-  openai-assistant: ${OPENAI-ASSISTANT}
-  openai-token: ${OPENAI-TOKEN}
-  telegram-token: ${TELEGRAM-TOKEN}
+  openai-assistant:
+  openai-token:
+  telegram-token:
+
+#variables:
+#  openai-assistant: ${OPENAI-ASSISTANT}
+#  openai-token: ${OPENAI-TOKEN}
+#  telegram-token: ${TELEGRAM-TOKEN}
 
 #Swagger
 #springdoc:

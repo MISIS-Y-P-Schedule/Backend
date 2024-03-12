@@ -1,4 +1,4 @@
-package com.schedulebackend.database.DTO;
+package com.schedulebackend.database.DTO.AuthDTO;
 
 import com.schedulebackend.database.entity.enums.Role;
 

@@ -34,7 +34,7 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
+.logs/
 .vscode/
 /tokens/StoredCredential
-/src/main/resources/credentials.json
-/src/main/resources/auth.json
+/src/main/resources/authfiles

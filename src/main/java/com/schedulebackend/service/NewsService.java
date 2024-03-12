@@ -7,6 +7,7 @@ import com.schedulebackend.database.entity.NewsLinkAttachments;
 import com.schedulebackend.database.entity.enums.NewsLinksType;
 import com.schedulebackend.database.repository.NewsRepository;
 import com.schedulebackend.parsers.NewsParser;
+import jakarta.security.auth.message.AuthException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class NewsService {
     }
 
     // Обновление новостей
-    public List<News> updateNews() throws IOException {
+    public List<News> updateNews() throws IOException, AuthException {
         List<News> newsBuffer = new ArrayList<>();
         JsonArray responseBody;
         if (newsRepository.findAll().isEmpty()) {

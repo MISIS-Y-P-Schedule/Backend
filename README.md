@@ -5,15 +5,18 @@ https://github.com/FADelto/MISIS-Y.P-Schedule-Frontend
 Макет приложения:
 https://www.figma.com/file/AdPtt8IgBkfQvuebVXsEMv/Schedule-app?type=design&node-id=0%3A1&mode=design&t=2rfRbSg3QKpedQyE-1
 
+[JWT аутентификация](https://github.com/FADelto/JwtAuthentication)
+
 ## Функции:
 - Тестирование приложения и документация API приложения в Swagger 
 - Получение расписания с Я.Пачки при помощи OpenAI Assistant
 - Telegram бот для просмотра новостей и расписания
 - Telegram бот для уведомления о начале пары
+- 
 
 ## Стек:
-* Java 20
-* Gradle
+* Java 17
+* Gradle 8.5
 * Spring Boot 3.2.2
 * Lombok 8.4
 * Liquibase 4.25.1
@@ -24,10 +27,11 @@ https://www.figma.com/file/AdPtt8IgBkfQvuebVXsEMv/Schedule-app?type=design&node-
 * Jackson 2.16.1
 
 ## TO-DO List:
- - [x] Получение расписания с API МИСИС
- - [ ] Обновление расписания в базе данных
+ - [ ] Получение расписания с API МИСИС
+ - [x] Обновление расписания в базе данных
  - [ ] Логика таск-менеджера
  - [x] Получение новостей с пачки
+ - [x] Получение расписания при помощи OpenAI Assistant
  - [ ] Создание документации к API в Swagger
  - [x]  Подготовка к контейнеризации приложения в Docker (Создание двух фазной сборки)
 ## Для запуска:

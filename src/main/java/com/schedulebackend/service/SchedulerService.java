@@ -4,7 +4,9 @@ import com.schedulebackend.database.entity.News;
 import com.schedulebackend.database.entity.ScheduledTask;
 import com.schedulebackend.database.repository.ScheduledTaskRepository;
 import com.schedulebackend.service.TelegramBot.TelegramBotService;
+import jakarta.security.auth.message.AuthException;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -43,7 +45,12 @@ public class SchedulerService implements ApplicationListener<ApplicationReadyEve
     @Scheduled(cron = "0 0 22 * * *", zone = "Europe/Moscow")
     @Scheduled(cron = "0 0 16 * * *", zone = "Europe/Moscow")
     public void updateNewsAndSchedule() throws IOException, TelegramApiException, InterruptedException {
-        List<News> newsList = new ArrayList<>(newsService.updateNews());
+        List<News> newsList = new ArrayList<>();
+        try {
+             newsList = new ArrayList<>(newsService.updateNews());
+        } catch (AuthException e){
+            telegramBotService.sendToOwnerMessage("Обнови токен пачки");
+        }
         for (News news : newsList) {
             try{
                 telegramBotService.sendNews(news);
@@ -56,7 +63,7 @@ public class SchedulerService implements ApplicationListener<ApplicationReadyEve
 
     //Создать таски при перезапуске
     @Override
-    public void onApplicationEvent(ApplicationReadyEvent event) {
+    public void onApplicationEvent(@NotNull ApplicationReadyEvent event) {
         List<ScheduledTask> tasks = scheduledTaskRepository.findByActive(true);
         tasks.forEach(this::scheduleTask);
     }

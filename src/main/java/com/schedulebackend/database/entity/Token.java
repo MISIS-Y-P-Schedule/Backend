@@ -16,13 +16,10 @@ public class Token {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    public Long id;
 
     @Column(unique = true)
     public String token;
-
-    @Enumerated(EnumType.STRING)
-    public TokenType tokenType = TokenType.BEARER;
 
     public boolean revoked;
 
@@ -31,4 +28,11 @@ public class Token {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     public User user;
+
+    public Token(String token, boolean revoked, boolean expired, User user) {
+        this.token = token;
+        this.revoked = revoked;
+        this.expired = expired;
+        this.user = user;
+    }
 }
