@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class HttpClient {
     OkHttpClient client = new OkHttpClient().newBuilder()
-            .connectTimeout(120, TimeUnit.SECONDS) // Тайм-аут подключения
-            .readTimeout(120, TimeUnit.SECONDS)    // Тайм-аут чтения
-            .writeTimeout(120, TimeUnit.SECONDS)   // Тайм-аут записи
+            .connectTimeout(180, TimeUnit.SECONDS) // Тайм-аут подключения
+            .readTimeout(180, TimeUnit.SECONDS)    // Тайм-аут чтения
+            .writeTimeout(180, TimeUnit.SECONDS)   // Тайм-аут записи
             .build();
 
     public String sendPostRequest(Request postRequest) {

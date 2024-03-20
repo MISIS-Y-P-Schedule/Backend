@@ -2,7 +2,6 @@ package com.schedulebackend.controller.rest;
 
 import com.schedulebackend.database.DTO.ErrorResponseDTO;
 import com.schedulebackend.database.entity.News;
-import com.schedulebackend.database.repository.NewsRepository;
 import com.schedulebackend.parsers.NewsParser;
 import com.schedulebackend.service.NewsService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,7 +19,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,7 +26,6 @@ import java.util.List;
 @Tag(name="Контроллер новостей из Пачки")
 public class NewsRestController {
     private final NewsService newsService;
-    private final NewsRepository newsRepository;
     private final NewsParser newsParser;
     @Operation(
             summary = "Получить все новости"
@@ -37,9 +34,10 @@ public class NewsRestController {
             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = News.class)))
     })
     @PreAuthorize("hasAuthority('STUDENT')")
+    @SecurityRequirement(name = "JWT")
     @GetMapping("/student/news")
-    public List<News> getNews() {
-        return newsRepository.findAll();
+    public ResponseEntity<?> getAllNews() {
+        return new ResponseEntity<>(newsService.getAllNews(), HttpStatus.OK);
     }
 
     @Operation(
@@ -49,9 +47,10 @@ public class NewsRestController {
             @Content(mediaType = "application/json", schema = @Schema(implementation = News.class))
     })
     @PreAuthorize("hasAuthority('STUDENT')")
+    @SecurityRequirement(name = "JWT")
     @GetMapping("/student/scheduleyp/get/{news_id}")
     public ResponseEntity<?> getNews(@PathVariable Long news_id) {
-        return new ResponseEntity<>(newsRepository.findById(news_id), HttpStatus.OK);
+        return new ResponseEntity<>(newsService.getNews(news_id), HttpStatus.OK);
     }
 
     @Operation(
@@ -103,6 +102,7 @@ public class NewsRestController {
         }
         return new ResponseEntity<>("Обновлено", HttpStatus.OK);
     }
+
 //    @PostConstruct
 //    public void Init() throws IOException {
 //        NewsParse news = new NewsParse(newsRepo);

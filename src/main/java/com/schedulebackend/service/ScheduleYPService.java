@@ -62,14 +62,14 @@ public class ScheduleYPService {
     @Transactional
     public List<ScheduleYP> getTodaySchedule() {
         LocalDate localdate = LocalDate.now();
-        return scheduleYPRepository.findAllByDate(java.sql.Date.valueOf(localdate));
+        return scheduleYPRepository.findAllByDateOrderByStartTime(java.sql.Date.valueOf(localdate));
     }
 
     @Transactional
     public List<ScheduleYP> getWeekSchedule() {
         LocalDate localdate = LocalDate.now();
         localdate = localdate.minusDays(localdate.getDayOfWeek().getValue());
-        return scheduleYPRepository.findAllByDateBetween(java.sql.Date.valueOf(localdate), java.sql.Date.valueOf(localdate.plusDays(6)));
+        return scheduleYPRepository.findAllByDateBetweenOrderByDateAscStartTimeAsc(java.sql.Date.valueOf(localdate), java.sql.Date.valueOf(localdate.plusDays(6)));
     }
 
     @Transactional
@@ -101,7 +101,7 @@ public class ScheduleYPService {
                         if(scheduledTask != null) {
                             schedulerService.cancelScheduledTask(scheduledTask.getId());
                         }else{
-                            telegramBotService.sendToOwnerMessage("Не удален урок из расписания:"+scheduleYP.getName());
+                            telegramBotService.sendToOwnerMessage("Не удален урок из расписания: "+scheduleYP.getName());
                         }
                     }
                 } else {

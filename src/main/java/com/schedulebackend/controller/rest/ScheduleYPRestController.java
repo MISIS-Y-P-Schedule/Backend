@@ -2,7 +2,6 @@ package com.schedulebackend.controller.rest;
 
 import com.schedulebackend.database.DTO.ErrorResponseDTO;
 import com.schedulebackend.database.entity.News;
-import com.schedulebackend.database.entity.ScheduleYP;
 import com.schedulebackend.database.repository.NewsRepository;
 import com.schedulebackend.service.ScheduleYPService;
 import com.schedulebackend.service.SchedulerService;
@@ -34,9 +33,7 @@ public class ScheduleYPRestController {
     @Operation(
             summary = "Обновить расписание по id новости"
     )
-    @ApiResponse(responseCode = "200", description = "OK", content = {
-            @Content(mediaType = "application/json", schema = @Schema(implementation = ScheduleYP.class))
-    })
+    @ApiResponse(responseCode = "200", description = "OK")
     @ApiResponse(responseCode = "404", description = "Неверный id новости", content = {
             @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseDTO.class))
     })
@@ -50,7 +47,7 @@ public class ScheduleYPRestController {
         catch(NoSuchElementException e){
             return ResponseEntity.status(500).body(new ErrorResponseDTO("Неверный id новости"));
         }
-        return ResponseEntity.ok().body("ok");
+        return ResponseEntity.ok().body("");
     }
 
     @Operation(
@@ -80,7 +77,7 @@ public class ScheduleYPRestController {
             summary = "Получить расписание на сегодня"
     )
     @ApiResponse(responseCode = "200", description = "OK", content = {
-            @Content(mediaType = "application/json", schema = @Schema(implementation = News.class))
+            @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = News.class)))
     })
     @PreAuthorize("hasAuthority('STUDENT')")
     @SecurityRequirement(name = "JWT")

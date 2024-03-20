@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static jakarta.persistence.FetchType.EAGER;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -24,7 +26,7 @@ public class News {
     @Column(length = 5000)
     private String content; // Название предмета
 
-    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, targetEntity = NewsLinkAttachments.class)
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, targetEntity = NewsLinkAttachments.class, fetch = EAGER)
     private List<NewsLinkAttachments> newsLinkList = new ArrayList<>();
 
 

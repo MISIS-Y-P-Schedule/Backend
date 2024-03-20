@@ -1,5 +1,6 @@
 logging:
   level:
+    liquibase: INFO
     root: INFO
     org.springframework.jdbc.core: TRACE
   file:
@@ -7,12 +8,9 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ScheduleBackendTest
-    username: postgres
-    password: postgres
-#    url: ${SPRING_DB_HOST}
-#    username: ${SPRING_DB_USER}
-#    password: ${SPRING_DB_USER}
+    url: ${SPRING_DB_HOST}
+    username: ${SPRING_DB_USER}
+    password: ${SPRING_DB_USER}
   jpa:
     hibernate:
       ddl-auto: validate
@@ -21,7 +19,6 @@ spring:
       format_sql: false
     properties:
       hibernate:
-        hibernate:
           dialect: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
   security:
@@ -38,15 +35,12 @@ spring:
     scheduling:
       pool:
         size: 5
-variables:
-  openai-assistant:
-  openai-token:
-  telegram-token:
 
-#variables:
-#  openai-assistant: ${OPENAI-ASSISTANT}
-#  openai-token: ${OPENAI-TOKEN}
-#  telegram-token: ${TELEGRAM-TOKEN}
+variables:
+  auth-file-path: app/authFiles/auth.json
+  openai-assistant: ${OPENAI-ASSISTANT}
+  openai-token: ${OPENAI-TOKEN}
+  telegram-token: ${TELEGRAM-TOKEN}
 
 #Swagger
 #springdoc:

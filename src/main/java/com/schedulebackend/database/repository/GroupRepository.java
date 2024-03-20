@@ -17,4 +17,7 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 
     @Query
     Optional<Group> findByName(String name);
+
+    @Query(value = "SELECT name FROM groups", nativeQuery = true)
+    List<String> findAllName();
 }

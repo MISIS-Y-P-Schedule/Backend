@@ -12,11 +12,11 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class ScheduleBackendApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(ScheduleBackendApplication.class, args);
-        try {
-            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            botsApi.registerBot(ctx.getBean("telegramBotService", AbilityBot.class));
-        } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
-        }
+       try {
+           TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+           botsApi.registerBot(ctx.getBean("telegramBotService", AbilityBot.class));
+       } catch (TelegramApiException e) {
+           throw new RuntimeException(e);
+       }
     }
 }

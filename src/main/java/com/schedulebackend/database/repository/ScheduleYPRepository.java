@@ -17,9 +17,9 @@ public interface ScheduleYPRepository extends JpaRepository<ScheduleYP, Long> {
     @Query
     ScheduleYP findByDateAndStartTimeAndLesson(Date date, Time startTime, LessonYP lesson);
     @Query
-    List<ScheduleYP> findAllByDateBetween(Date firstDate, Date secondDate);
+    List<ScheduleYP> findAllByDateBetweenOrderByDateAscStartTimeAsc(Date firstDate, Date secondDate);
     @Query
-    List<ScheduleYP> findAllByDate(Date date);
+    List<ScheduleYP> findAllByDateOrderByStartTime(Date date);
 
     @Query
     void deleteAllByDateAndLesson(Date date, LessonYP lessonYP);

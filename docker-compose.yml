@@ -11,9 +11,9 @@ services:
     depends_on:
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/backendapp
       - SPRING_DATASOURCE_USERNAME=compose-postgres
-      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres0201
       - OPENAI-TOKEN=
       - OPENAI-ASSISTANT=
       - TELEGRAM-TOKEN=
@@ -22,7 +22,11 @@ services:
 
   db:
     image: 'postgres:13.1-alpine'
+    ports:
+      - "5432:5432"
     container_name: db
     environment:
       - POSTGRES_USER=compose-postgres
-      - POSTGRES_PASSWORD=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres0201
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d

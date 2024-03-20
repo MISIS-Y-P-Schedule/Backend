@@ -3,7 +3,6 @@ package com.schedulebackend.parsers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-import com.schedulebackend.database.repository.NewsRepository;
 import jakarta.security.auth.message.AuthException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +12,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -23,10 +23,9 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class NewsParser {
 
-    private final NewsRepository newsRepository;
-
     //private static final String AUTH_FILE_PATH = "app/authFiles/auth.json";
-    private static final String AUTH_FILE_PATH = "src/main/resources/authFiles/auth.json";
+    @Value("${variables.auth-file-path}")
+    private String AUTH_FILE_PATH;
 
     @Setter
     @Getter
